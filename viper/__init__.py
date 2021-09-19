@@ -1,19 +1,8 @@
 from argparse import Namespace
 
-
-def __install(package_name: str):
-    print("installing", package_name)
-    pass
-
-
-def __remove(package_name: str):
-    print("removing", package_name)
-    pass
-
-
-def __init():
-    print("init a project")
-    pass
+from .init import main as __init
+from .install import main as __install
+from .remove import main as __remove
 
 
 operations = {

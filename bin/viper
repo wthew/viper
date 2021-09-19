@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# verificar viper home
+# add viper to python interpreter can find it
+
+python -m viper $@
