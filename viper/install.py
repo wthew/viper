@@ -1,5 +1,5 @@
 
 def main(package):
-  print("removing", package)
+  print("installnf", package)
   
 

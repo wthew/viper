@@ -6,15 +6,13 @@ from .remove import main as __remove
 
 
 operations = {
-    "install": lambda package: __install(package),
-    "remove": lambda package: __remove(package),
-    "init": lambda: __init(),
+    "install": lambda pos_args: __install(pos_args),
+    "remove": lambda pos_args: __remove(pos_args),
+    "init": lambda pos_args: __init(pos_args),
 }
 
 
 def main(args: Namespace):
     operation = args.operation
     package = args.package
-
-    print("main...")
     operations[operation](package)
