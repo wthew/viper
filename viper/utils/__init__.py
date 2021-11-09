@@ -58,7 +58,7 @@ def dowload_remote(package_url: str, package_dirname: str):
         chdir(path.join(tmp_dir, package_dirname))
 
         with open('setup.py') as setup_script:
-            exec(setup_script.read())
+            return setup_script.read()
     
     except Exception:
         return None

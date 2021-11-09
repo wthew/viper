@@ -1,9 +1,7 @@
 import os
-from pip._internal.operations import install
-from pip._internal.operations.freeze import freeze
 
 from viper.utils import dowload_remote, get_latest_version
-from .lib import (
+from viper.lib import (
     check_project,
     read_project_yaml,
     write_project_yaml,
@@ -70,17 +68,13 @@ def run(args: list[str]):
 
 
 def add(args: list[str]):
-    check_project()
+    # editando função add
+    project = check_project()
 
-    print(args)
+    python_file = os.path.join(os.getcwd(), "venv", "bin", "python")
 
-    latest = get_latest_version(args[0])
-
-    if latest:
-        dowload_remote(latest["url"], latest["dirname"])
-
-    else:
-        print("404")
+    packages = " ".join(args)
+    os.system(f"{python_file} -m pip install {packages}")
 
 
 def remove(args: list[str]):

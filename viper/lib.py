@@ -43,18 +43,12 @@ def check_project():
     python_file = os.path.join(os.getcwd(), "venv", "bin", "python")
     activate_file = os.path.join(os.getcwd(), "venv", "bin", "activate")
 
-    if not os.path.isfile(package_file):
-        raise NoProjectError
+    for req_file in [package_file, pip_file, python_file, activate_file]:
+        if not os.path.isfile(req_file):
+            raise NoProjectError
 
-    if not os.path.isfile(pip_file):
-        raise NoProjectError
-    
-    if not os.path.isfile(python_file):
-        raise NoProjectError
-    
-    if not os.path.isfile(activate_file):
-        raise NoProjectError
-    
+    os.system(f"source {activate_file}")
+
     subprocess.call(f". {activate_file}", shell=True)
 
     with open(package_file, "+r") as file:
