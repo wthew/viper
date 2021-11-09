@@ -1,16 +1,25 @@
 from argparse import Namespace
+from datetime import datetime
+import os
 
-from .init import main as __init
-from .install import main as __install
-from .remove import main as __remove
+from .actions import add, remove, init, run
 
 operations = {
-    "install": __install,
-    "remove": __remove,
-    "init": __init,
+    "init": init,
+    "run": run,
+    "add": add,
+    "remove": remove,
 }
 
 def main(args: Namespace):
+    started_at = datetime.now()
+
     operation = args.operation
     package = args.package
+
+    print(f'⏳ viper {operation}')
+    
     operations[operation](package)
+
+    done_in = datetime.now() - started_at
+    print("⌛ Done in:", str(done_in.seconds) + "s")
