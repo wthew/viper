@@ -1,6 +1,5 @@
 from argparse import Namespace
 from datetime import datetime
-import os
 
 from .actions import add, remove, init, run
 

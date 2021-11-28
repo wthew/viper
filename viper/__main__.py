@@ -1,7 +1,6 @@
 from argparse import ArgumentParser
 from . import main as run, operations
 
-# args parser
 def main():
     parser = ArgumentParser(prog="Viper", description="A yarn like Python Package Manager")
 

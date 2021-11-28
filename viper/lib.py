@@ -1,23 +1,23 @@
 import os
 import subprocess
-from typing import Union
 import yaml
 
 
 def write_project_yaml(name, author):
     # todo: regex to validate fields
+    project_dict = {
+        "name": name,
+        "version": "1.0.0",
+        "main": f"{name}/__init__.py",
+        "author": author,
+        "license": "MIT",
+        "tasks": {
+            "start": f"venv/bin/python {name}/__init__.py",
+        },
+    }
 
     return yaml.dump(
-        {
-            "name": name,
-            "version": "1.0.0",
-            "main": f"{name}/__init__.py",
-            "author": author,
-            "license": "MIT",
-            "tasks": {
-                "start": f"venv/bin/python {name}/__init__.py",
-            },
-        },
+        project_dict,
         sort_keys=False,
         indent=4,
     )
@@ -36,8 +36,6 @@ def read_project_yaml():
 
 
 def check_project():
-    NoProjectError = Exception("Not in a Viper Project Root!")
-
     package_file = os.path.join(os.getcwd(), "package.yaml")
     pip_file = os.path.join(os.getcwd(), "venv", "bin", "pip")
     python_file = os.path.join(os.getcwd(), "venv", "bin", "python")
@@ -45,7 +43,7 @@ def check_project():
 
     for req_file in [package_file, pip_file, python_file, activate_file]:
         if not os.path.isfile(req_file):
-            raise NoProjectError
+            raise Exception("Not in a Viper Project Root!")
 
     os.system(f"source {activate_file}")
 
