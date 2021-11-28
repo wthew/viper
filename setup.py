@@ -9,4 +9,9 @@ setup(
     install_requires=["pyyaml", "bs4"],
     packages=find_packages(where="."),
     python_requires=">=3.6, <4",
+    entry_points={
+    'console_scripts': [
+        'viper = viper.__main__:main',
+    ],
+},
 )
