@@ -1,6 +1,5 @@
 import os
 
-from viper.utils import dowload_remote, get_latest_version
 from viper.lib import (
     check_project,
     read_project_yaml,
@@ -68,7 +67,6 @@ def run(args: list[str]):
 
 
 def add(args: list[str]):
-    # editando função add
     project = check_project()
 
     python_file = os.path.join(os.getcwd(), "venv", "bin", "python")
