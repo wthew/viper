@@ -1,4 +1,4 @@
-import os
+import os, sys, subprocess
 
 from viper.lib import (
     check_project,
@@ -59,12 +59,23 @@ def run(args: list[str]):
 
     tasks = properties["tasks"]
 
-    if task in tasks:
-        os.system(tasks[task])
-
-    else:
+    if task not in tasks:
         print(f"not exist task {task} in package")
+        return
+    
+    here = os.getcwd()
+    project_root = os.path.join(here, properties["name"])
+    print(f'{project_root=}')
+    sys.path.append(project_root)
+    sys.path.append(os.path.dirname(project_root))
+    os.environ['PATH'] += os.pathsep + os.path.abspath(project_root)
+    os.environ['PATH'] += os.pathsep + os.path.abspath(os.path.dirname(project_root))
 
+    if here in sys.path:
+        sys.path.remove(here)
+
+    print(f'{os.environ["PATH"]=}')
+    subprocess.run(tasks[task], shell=True, env=os.environ, cwd=here)
 
 def add(args: list[str]):
     project = check_project()
@@ -73,6 +84,7 @@ def add(args: list[str]):
 
     packages = " ".join(args)
     os.system(f"{python_file} -m pip install {packages}")
+    os.system(f"{python_file} -m pip freeze > requirements.txt")
 
 
 def remove(args: list[str]):
